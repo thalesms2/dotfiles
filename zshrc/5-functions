@@ -1,0 +1,115 @@
+cursor () {
+  ~/.appImages/cursor.appimage "$@" 1>/dev/null 2>&1 &
+}
+
+zed () {
+  flatpak run dev.zed.Zed "$@" 1>/dev/null 2>&1 &
+}
+
+lando () {
+  if [[ "$1" = "rebuild" || "$1" = "start" ]]; then
+    data_source="$HOME/DataGripProjects/MP/.idea/dataSources.xml"
+    command lando "$@"
+    hostname=$(docker exec multipedidos_database_1 hostname -I | awk '{print $1}')
+    old_ip=$(sed -n 's/.*<jdbc-url>jdbc:mysql:\/\/\([^:]*\):[0-9]*\/.*/\1/p' "$data_source")
+    if [[ "$hostname" = "$old_ip" ]]; then
+      echo "Hostname não foi alterado."
+      return
+    fi
+    echo "Hostname antigo: $old_ip"
+    sed -i "s/$old_ip/$hostname/g" "$data_source"
+    echo "Hostname atualizado: $hostname"
+  else
+    command lando "$@"
+  fi
+}
+
+npm () {
+  if [[ -f "$PWD/.tool-versions" ]]; then
+    command asdf exec npm "$@"
+  else
+    command npm "$@"
+  fi
+}
+
+git () {
+  local open=0
+  local git_push_args=()
+
+  if [[ "$1" != "push" ]]; then
+    command git "$@"
+    return
+  elif [[ "$1" = "push" ]]; then
+    while [[ $# -gt 0 ]]; do
+      case $1 in
+        -b)
+          open=1
+          shift
+          ;;
+        -nb)
+          open=2
+          shift
+          ;;
+        *)
+          git_push_args+=("$1")
+          shift
+          ;;
+      esac
+    done
+
+    push_output=$(command git "${git_push_args[@]}" 2>&1)
+
+    link=$(echo "$push_output" | grep -o 'http[^ ]*')
+    if [[ -z "$link" ]]; then
+      echo "Nenhum link de MR encontrado no output do git push."
+      return 0
+    fi
+    echo "link: $link"
+
+    if [[ $open = 0 ]]; then
+      open=$(command echo "Sim(Y)|Não(N)" | rofi -sep '|' -p 'Deseja abrir o link no navegador?' -i -auto-select -only-match -no-custom -format d -dmenu)
+    fi
+    echo "$push_output"
+    # Decide o que fazer com base na flag ou pergunta ao usuário
+    case $open in
+      1)
+        echo "Abrindo o link da MR: $link"
+        command xdg-open "$link"
+        return 0
+        ;;
+      2)
+        return 0
+        ;;
+    esac
+  fi
+}
+
+function php(){
+    [[ -f "$(pwd)/.lando.yml" ]]  && lando php $* || /usr/bin/php $* 
+}
+
+function composer(){
+    [[ -f "$(pwd)/.lando.yml" ]]  && lando composer $* || /usr/bin/composer $* 
+}
+
+function phpunit(){
+    [[ -f "$(pwd)/.lando.yml" ]]  && lando phpunit $* || /usr/bin/phpunit $* 
+}
+
+function sesh-sessions() {
+  {
+    exec </dev/tty
+    exec <&1
+    local session
+    session=$(sesh list --icons | fzf-tmux -p 80%,70% --no-sort --ansi --border-label " sesh " --prompt "⚡  " --header "  ^a all ^t tmux ^g configs ^x zoxide ^d tmux kill ^f find" --bind "tab:down,btab:up" --bind "ctrl-a:change-prompt(⚡  )+reload(sesh list --icons)" --bind "ctrl-t:change-prompt(🪟  )+reload(sesh list -t --icons)" --bind "ctrl-g:change-prompt(⚙️  )+reload(sesh list -c --icons)" --bind "ctrl-x:change-prompt(📁  )+reload(sesh list -z --icons)" --bind "ctrl-f:change-prompt(🔎  )+reload(fd -H -d 2 -t d -E .Trash . ~)" --bind "ctrl-d:execute(tmux kill-session -t {2..})+change-prompt(⚡  )+reload(sesh list --icons)" --preview-window "right:55%" --preview "sesh preview {}")
+    zle reset-prompt > /dev/null 2>&1 || true
+    [[ -z "$session" ]] && return
+    sesh connect $session
+  }
+}
+
+# bind ALT + T to open sesh-sessions
+zle     -N             sesh-sessions
+bindkey -M emacs '\et' sesh-sessions
+bindkey -M vicmd '\et' sesh-sessions
+bindkey -M viins '\et' sesh-sessions

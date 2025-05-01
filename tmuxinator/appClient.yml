@@ -1,0 +1,21 @@
+---
+name: mp/appClient
+project_root: "~/mp/app-client"
+on_project_first_start: |
+    if [[ ! $(git status --porcelain) ]]; then
+      if [[ $(git branch --show-current) == "master" ]]; then
+        git pull
+      else
+        git checkout master
+        git pull
+        git checkout -
+      fi
+    fi
+windows:
+    - Terminal:
+          panes:
+              - clear
+    - appRun:
+          panes:
+              - npm run start
+

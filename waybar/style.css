@@ -1,0 +1,224 @@
+@import "../../.cache/wal/colors-waybar.css";
+
+@define-color foreground #bfbfbf;
+@define-color background #000000;
+@define-color cursor #bfbfbf;
+
+@define-color color0 #000000;
+@define-color color1 #211c0e;
+@define-color color2 #242c33;
+@define-color color3 #233b37;
+@define-color color4 #444026;
+@define-color color5 #4b5d63;
+@define-color color6 #4f7671;
+@define-color color7 #918686;
+@define-color color8 #615050;
+@define-color color9 #2d2613;
+@define-color color10 #303b44;
+@define-color color11 #2f4f4a;
+@define-color color12 #bfb567;
+@define-color color13 #647c84;
+@define-color color14 #6a9e97;
+@define-color color15 #bfbfbf;
+
+@keyframes blink {
+  to {
+    color: @color12;
+  }
+}
+
+* {
+  font-family: "FiraMono Nerd Font", "FontAwesome";
+  border: none;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+window#waybar {
+  background-color: alpha(@background, 0.2);
+  border-bottom: 0px solid @color15;
+  color: @color14;
+  transition-property: background-color;
+  transition-duration: 0.5s;
+}
+
+#workspaces button {
+  all: unset;
+  padding: 0px 5px;
+  color: alpha(@color2, 0.8);
+  transition: all 0.2s ease;
+}
+#workspaces button:hover {
+  color: alpha(@color15, 0.8);
+  border: none;
+  text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+  transition: all 1s ease;
+}
+#workspaces button.active {
+  color: @color14;
+  border: none;
+  text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+}
+#workspaces button.empty {
+  color: alpha(@color2, 0.1);
+  border: none;
+  text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+}
+#workspaces button.empty:hover {
+  color: alpha(@color2, 0.1);
+  border: none;
+  text-shadow: 0px 0px 1.5px rgba(0, 0, 0, 0.5);
+  transition: all 1s ease;
+}
+#workspaces button.empty.active {
+  color: alpha(@color2, 0.8);
+  border: none;
+  text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+}
+
+#workspaces button.urgent {
+  color: @color12;
+  border: none;
+  text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+}
+
+#workspaces button.urgent:hover {
+  color: @color15;
+  border: none;
+  text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+  transition: all 1s ease;
+}
+
+tooltip {
+  border-radius: 7px;
+  background-color: @background;
+  opacity: 0.8;
+}
+
+tooltip label {
+  color: @color12;
+}
+
+#window {
+  background: @background;
+  margin: 10px 15px 10px 0px;
+  padding: 2px 10px 0px 10px;
+  border-radius: 12px;
+  color: @color12;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+window#waybar.empty #window {
+  background-color: transparent;
+}
+
+#custom-notification {
+  font-size: 20px;
+  padding-left: 4px;
+  padding-right: 4px;
+  color: @color14;
+}
+
+#custom-notification.dnd-notification,
+#custom-notification.dnd-none,
+#custom-notification.dnd-inhibited-notification,
+#custom-notification.dnd-inhibited-none {
+  padding-right: 8px;
+  padding-left: 2px;
+}
+
+#custom-notification.notification,
+#custom-notification.dnd-notification,
+#custom-notification.inhibited-notification,
+#custom-notification.dnd-inhibited-notification {
+  color: @color14;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#network,
+#pulseaudio,
+#battery,
+#clock {
+  color: @color14;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#disk,
+#memory,
+#cpu,
+#language {
+  margin: 0px;
+  padding: 0px;
+  font-size: 16px;
+  color: @color14;
+}
+
+#clock {
+  background-color: @background;
+  color: @color14;
+  border-radius: 15px;
+  margin: 5px 10px 5px 0px;
+}
+
+#pulseaudio {
+  background-color: @foreground;
+  font-size: 16px;
+  color: @color14;
+  border-radius: 15px;
+  margin: 10px 10px 10px 0px;
+}
+
+#pulseaudio.muted {
+  background-color: @background;
+  color: @color14;
+}
+
+#network {
+  background-color: @background;
+  color: @color14;
+  border-radius: 15px;
+  margin: 5px 5px 5px 5px;
+}
+
+#network.ethernet {
+  background-color: @background;
+  color: @color14;
+}
+
+#network.wifi {
+  background-color: @background;
+  color: @color14;
+}
+
+#expand,
+#cpu,
+#memory,
+#endpoint {
+  padding: 5px 5px 5px 0px;
+}
+
+#battery {
+  background-color: @background;
+  font-size: 15px;
+  color: @color14;
+  border-radius: 15px;
+}
+
+#battery.critical:not(.charging) {
+  color: @color14;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#network.disconnected {
+  background-color: #f53c3c;
+}

@@ -1,0 +1,28 @@
+{
+    "checksum": "2a4647483781cb5e98f8d8c82d5a7310",
+    "wallpaper": "/home/sato/.config/wallpapers/wallpaper1.png",
+    "alpha": "100",
+    "special": {
+        "background": "#000000",
+        "foreground": "#bfbfbf",
+        "cursor": "#bfbfbf"
+    },
+    "colors": {
+        "color0": "#000000",
+        "color1": "#211c0e",
+        "color2": "#242c33",
+        "color3": "#233b37",
+        "color4": "#444026",
+        "color5": "#4b5d63",
+        "color6": "#4f7671",
+        "color7": "#918686",
+        "color8": "#615050",
+        "color9": "#2d2613",
+        "color10": "#303b44",
+        "color11": "#2f4f4a",
+        "color12": "#5b5633",
+        "color13": "#647c84",
+        "color14": "#6a9e97",
+        "color15": "#bfbfbf"
+    }
+}

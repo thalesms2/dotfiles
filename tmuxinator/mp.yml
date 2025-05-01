@@ -1,0 +1,29 @@
+---
+name: mp
+project_root: "~/mp"
+windows:
+    - server:
+          panes:
+              - lando:
+                    - cd ~/mp/server
+                    - clear
+    - appClient:
+          panes:
+              - first:
+                    - cd ~/mp/app-client
+                    - clear
+    - pedirDelivery:
+          panes:
+              - first:
+                    - cd ~/mp/pedirdelivery
+                    - clear
+    - mobilePos:
+          panes:
+              - first:
+                    - cd ~/mp/mobile-pos
+                    - clear
+    - cardapnator:
+          panes:
+              - first:
+                    - cd ~/mp/cardapnator
+                    - clear

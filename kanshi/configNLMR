@@ -1,0 +1,17 @@
+profile Dock {
+    output eDP-1 enable mode 1920x1080@60.00Hz scale 1 position -1920,1080
+    output HDMI-A-1 enable mode 1920x1080@74.97Hz position -1920,0
+    output DP-3 enable mode 1920x1080@119.98Hz position 0,0
+    output DP-4 enable mode 2560x1080@74.99Hz transform 270 position 1920,-580
+}
+
+profile DockWithoutLeft {
+    output eDP-1 enable mode 1920x1080@60.00Hz scale 1 position -1920,0
+    output DP-3 enable mode 1920x1080@119.98Hz position 0,0
+    output DP-4 enable mode 2560x1080@74.99Hz transform 270 position 1920,-580
+}
+
+
+profile Laptop {
+    output eDP-1 enable mode 1920x1080@60.00Hz scale 1 position 0,0
+}

@@ -1,0 +1,10 @@
+[Unit]
+Description=Fig Daemon
+
+[Service]
+ExecStart=fig daemon
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

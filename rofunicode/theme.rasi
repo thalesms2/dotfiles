@@ -1,0 +1,4 @@
+listview {
+  cycle: true;
+  scrollbar: true;
+}

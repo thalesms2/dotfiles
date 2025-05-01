@@ -1,0 +1,21 @@
+---
+name: mp/server
+project_root: "~/mp/server"
+on_project_first_start: |
+    if [[ ! $(git status --porcelain) ]]; then
+      if [[ $(git branch --show-current) == "master" ]]; then
+        git pull
+      else
+        git checkout master
+        git pull
+        git checkout -
+      fi
+    fi
+on_project_stop: lando stop
+windows:
+    - server:
+          panes:
+              - execServer:
+                    - clear
+                    - lando start
+                    - composer dump-autoload

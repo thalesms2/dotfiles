@@ -1,0 +1,24 @@
+# -----------------------------------------------------
+# ALIASES
+# -----------------------------------------------------
+
+# -----------------------------------------------------
+# General
+# -----------------------------------------------------
+alias c='clear'
+alias ff='fastfetch'
+alias ls='eza -a --icons=always'
+alias ll='eza -al --icons=always'
+alias lt='eza -a --tree --level=1 --icons=always'
+alias shutdown='systemctl poweroff'
+alias net='nmtui'
+alias gcm='git checkout master'
+alias gp='git pull'
+
+# -----------------------------------------------------
+# Scripts
+# -----------------------------------------------------
+alias fyay="yay -Slq | fzf --multi --preview \"cat <(yay -Si {1}) <(yay -Fl {1} | awk '{print \$2}')\" | xargs -ro yay -S"
+alias fpacman="pacman -Slq | fzf --multi --preview 'pacman -Si {1}' | xargs -ro sudo pacman -S"
+alias chist='cliphist list | fzf --no-sort | cliphist decode | wl-copy'
+

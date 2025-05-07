@@ -17,19 +17,63 @@ return { -- Fuzzy Finder (files, lsp, etc)
 		{ "ghassan0/telescope-glyph.nvim" },
 		{ "xiyaowong/telescope-emoji.nvim" },
 		{ "nvim-telescope/telescope-project.nvim" },
+		{ "debugloop/telescope-undo.nvim" },
+		{ "aaronhallaert/advanced-git-search.nvim" },
 	},
-	config = function()
+	opts = function()
+		local t = require("telescope")
+		local builtin = require("telescope.builtin")
+		local ext = require("telescope").extensions
+		local themes = require("telescope.themes")
+
+		pcall(t.load_extension, "fzf")
+		pcall(t.load_extension, "ui-select")
+		pcall(t.load_extension, "gitmoji")
+		pcall(t.load_extension, "glyph")
+		pcall(t.load_extension, "emoji")
+		pcall(t.load_extension, "project")
+		pcall(t.load_extension, "undo")
+		pcall(t.load_extension, "advanced_git_search")
+
 		local project_actions = require("telescope._extensions.project.actions")
-		require("telescope").setup({
+
+		require("which-key").add({
+			{ "<leader>sh", function() builtin.help_tags() end, desc = "[S]earch [H]elp", mode = "n", },
+			{ "<leader>sr", function() builtin.git_files() end, desc = "[S]earch on [R]epository", mode = "n", },
+			{ "<leader>sk", function() builtin.keymaps() end, desc = "[S]earch [K]eymaps", mode = "n", },
+			{ "<leader>sf", function() builtin.find_files() end, desc = "[S]earch [F]iles", mode = "n", },
+			{ "<leader>s?", function() builtin.builtin() end, desc = "[S]earch buildin help[?]", mode = "n", },
+			{ "<leader>sw", function() builtin.grep_string() end, desc = "[S]earch current [W]ord", mode = "n", },
+			{ "<leader>sg", function() builtin.live_grep() end, desc = "[S]earch by [G]rep", mode = "n", },
+			{ "<leader>sd", function() builtin.diagnostics() end, desc = "[S]earch [D]iagnostics", mode = "n", },
+			{ "<leader>s-", function() builtin.resume() end, desc = "[S]earch resume [-]", mode = "n", },
+			{ "<leader>s.", function() builtin.oldfiles() end, desc = '[S]earch Recent Files ("." for repeat)', mode = "n", },
+			{ "<leader><leader>", function() builtin.buffers() end, desc = "[ ] Find existing buffers", mode = "n", },
+			{ "<leader>sc", function() builtin.find_files({ cwd = vim.fn.stdpath("config") }) end, desc = "[S]earch Neovim [C]onfig", },
+			{ "<leader>gm", function() ext.gitmoji.gitmoji() end, desc = "[G]it[M]oji", },
+			{ "<leader>sG", function() ext.glyph.glyph() end, desc = "[S]earch [G]lyphs", },
+			{ "<leader>s=", function() ext.emoji.emoji() end, desc = "[S]earch emojis [=]", },
+			{ "<leader>su", function() ext.undo.undo() end, desc = "[S]earch [U]ndo", },
+			{ "<leader>sp", function() ext.project.project() end, desc = "[S]earch [P]rojects", },
+			{ "<leader>sag", function() ext.advanced_git_search.changed_on_branch() end, desc = "[S]earch using [A]dvanced [G]it search", },
+			{ "<leader>/", function() builtin.current_buffer_fuzzy_find(themes.get_dropdown({ winblend = 10, previewer = true, })) end, desc = "[/] Fuzzily search in current buffer", },
+			{ "<leader>s/", function() builtin.live_grep({ grep_open_files = true, prompt_title = "Live Grep in Open Files", }) end, desc = "[S]earch [/] in Open Files", },
+		})
+
+		return {
 			extensions = {
-                glyph = {
-                    action = function(glyph)
-                        vim.api.nvim_put({ glyph.value }, 'c', false, true)
-                    end,
-                },
-				["ui-select"] = {
-					require("telescope.themes").get_dropdown(),
+				glyph = {
+					action = function(glyph)
+						vim.api.nvim_put({ glyph.value }, "c", false, true)
+					end,
 				},
+				["ui-select"] = {
+					themes.get_dropdown(),
+				},
+				undo = {
+					-- telescope-undo.nvim config, see below
+				},
+				advanced_git_search = {},
 				project = {
 					ignore_missing_dirs = true, -- default: false
 					hidden_files = true, -- default: false
@@ -81,61 +125,6 @@ return { -- Fuzzy Finder (files, lsp, etc)
 					},
 				},
 			},
-		})
-		pcall(require("telescope").load_extension, "fzf")
-		pcall(require("telescope").load_extension, "ui-select")
-		pcall(require("telescope").load_extension, "gitmoji")
-		pcall(require("telescope").load_extension, "glyph")
-		pcall(require("telescope").load_extension, "emoji")
-		pcall(require("telescope").load_extension, "project")
-
-		-- See `:help telescope.builtin`
-		local builtin = require("telescope.builtin")
-
-		vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
-		vim.keymap.set("n", "<leader>sr", builtin.git_files, { desc = "[S]earch on [R]epository" })
-		vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
-		vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
-		vim.keymap.set("n", "<leader>s?", builtin.builtin, { desc = "[S]earch buildin help[?]" })
-		vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
-		vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
-		vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
-		vim.keymap.set("n", "<leader>s-", builtin.resume, { desc = "[S]earch resume [-]" })
-		vim.keymap.set("n", "<leader>s.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-		vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
-
-		vim.keymap.set("n", "<leader>/", function()
-			builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
-				winblend = 10,
-				previewer = true,
-			}))
-		end, { desc = "[/] Fuzzily search in current buffer" })
-
-		vim.keymap.set("n", "<leader>s/", function()
-			builtin.live_grep({
-				grep_open_files = true,
-				prompt_title = "Live Grep in Open Files",
-			})
-		end, { desc = "[S]earch [/] in Open Files" })
-
-		vim.keymap.set("n", "<leader>sc", function()
-			builtin.find_files({ cwd = vim.fn.stdpath("config") })
-		end, { desc = "[S]earch Neovim [C]onfig" })
-
-		vim.keymap.set("n", "<leader>gm", function()
-			require("telescope").extensions.gitmoji.gitmoji()
-		end, { desc = "[G]it[M]oji" })
-
-		vim.keymap.set("n", "<leader>sG", function()
-			require("telescope").extensions.glyph.glyph()
-		end, { desc = "[S]earch [G]lyphs" })
-
-		vim.keymap.set("n", "<leader>s=", function()
-			require("telescope").extensions.emoji.emoji()
-		end, { desc = "[S]earch emojis [=]" })
-
-		vim.keymap.set("n", "<leader>sp", function()
-			require("telescope").extensions.project.project()
-		end, { desc = "[S]earch [P]rojects" })
+		}
 	end,
 }

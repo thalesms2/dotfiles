@@ -48,16 +48,43 @@ return { -- Autocompletion
 					end
 				end, { "i", "s" }),
 			}),
+			formatting = {
+				format = function(entry, vim_item)
+					vim_item.menu = ({
+						rg = "[Rg]",
+						buffer = "[Buffer]",
+						nvim_lsp = "[LSP]",
+						luasnip = "[Snippet]",
+						tags = "[Tag]",
+						path = "[Path]",
+						orgmode = "[Org]",
+						["vim-dadbod-completion"] = "[DB]",
+					})[entry.source.name]
+					return vim_item
+				end,
+			},
 			sources = {
 				{
 					name = "lazydev",
 					group_index = 0,
 				},
+				{ name = "rg", keyword_length = 2 },
+				{ name = "tags", keyword_length = 3 },
+				{ name = "orgmode" },
+				{ name = "buffer" },
 				{ name = "nvim_lsp" },
 				{ name = "luasnip" },
 				{ name = "path" },
 				{ name = "nvim_lsp_signature_help" },
 			},
+		})
+		local autocomplete_group = vim.api.nvim_create_augroup("vimrc_autocompletion", { clear = true })
+		vim.api.nvim_create_autocmd("FileType", {
+			pattern = { "sql", "mysql", "plsql" },
+			callback = function()
+				cmp.setup.buffer({ sources = { { name = "vim-dadbod-completion" } } })
+			end,
+			group = autocomplete_group,
 		})
 	end,
 }

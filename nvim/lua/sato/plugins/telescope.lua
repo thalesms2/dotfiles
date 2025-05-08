@@ -34,6 +34,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
 		pcall(t.load_extension, "project")
 		pcall(t.load_extension, "undo")
 		pcall(t.load_extension, "advanced_git_search")
+		pcall(t.load_extension, "yank_history")
 
 		local project_actions = require("telescope._extensions.project.actions")
 
@@ -58,6 +59,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
 			{ "<leader>sag", function() ext.advanced_git_search.changed_on_branch() end, desc = "[S]earch using [A]dvanced [G]it search", },
 			{ "<leader>/", function() builtin.current_buffer_fuzzy_find(themes.get_dropdown({ winblend = 10, previewer = true, })) end, desc = "[/] Fuzzily search in current buffer", },
 			{ "<leader>s/", function() builtin.live_grep({ grep_open_files = true, prompt_title = "Live Grep in Open Files", }) end, desc = "[S]earch [/] in Open Files", },
+            { "<leader>sy", function() ext.yank_history.yank_history() end, desc = "[S]earch [Y]anky" }
 		})
 
 		return {

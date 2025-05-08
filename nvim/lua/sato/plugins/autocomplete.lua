@@ -16,11 +16,11 @@ return { -- Autocompletion
 		"hrsh7th/cmp-path",
 		"hrsh7th/cmp-nvim-lsp-signature-help",
 	},
-	config = function()
+	opts = function()
 		local cmp = require("cmp")
 		local luasnip = require("luasnip")
 		luasnip.config.setup({})
-		cmp.setup({
+		return {
 			snippet = {
 				expand = function(args)
 					luasnip.lsp_expand(args.body)
@@ -32,11 +32,8 @@ return { -- Autocompletion
 				["<C-p>"] = cmp.mapping.select_prev_item(),
 				["<C-b>"] = cmp.mapping.scroll_docs(-4),
 				["<C-f>"] = cmp.mapping.scroll_docs(4),
-
 				["<C-y>"] = cmp.mapping.confirm({ select = true }),
-
 				["<C-Space>"] = cmp.mapping.complete({}),
-
 				["<C-l>"] = cmp.mapping(function()
 					if luasnip.expand_or_locally_jumpable() then
 						luasnip.expand_or_jump()
@@ -64,10 +61,7 @@ return { -- Autocompletion
 				end,
 			},
 			sources = {
-				{
-					name = "lazydev",
-					group_index = 0,
-				},
+				{ name = "lazydev", group_index = 0, },
 				{ name = "rg", keyword_length = 2 },
 				{ name = "tags", keyword_length = 3 },
 				{ name = "orgmode" },
@@ -77,14 +71,6 @@ return { -- Autocompletion
 				{ name = "path" },
 				{ name = "nvim_lsp_signature_help" },
 			},
-		})
-		local autocomplete_group = vim.api.nvim_create_augroup("vimrc_autocompletion", { clear = true })
-		vim.api.nvim_create_autocmd("FileType", {
-			pattern = { "sql", "mysql", "plsql" },
-			callback = function()
-				cmp.setup.buffer({ sources = { { name = "vim-dadbod-completion" } } })
-			end,
-			group = autocomplete_group,
-		})
+		}
 	end,
 }

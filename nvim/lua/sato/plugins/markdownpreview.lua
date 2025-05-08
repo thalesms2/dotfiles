@@ -6,6 +6,11 @@ return {
 	end,
 	init = function()
 		vim.g.mkdp_filetypes = { "markdown" }
+		vim.g.mkdp_open_to_the_world = 0
+		vim.g.mkdp_open_ip = "127.0.0.1"
+		vim.g.mkdp_browser = "firefox"
+		vim.g.mkdp_port = 8978
+		vim.g.mkdp_echo_preview_url = 1
 	end,
 	ft = { "markdown" },
 	keys = {
@@ -17,11 +22,4 @@ return {
 			desc = "Markdown Preview",
 		},
 	},
-	config = function()
-		vim.g.mkdp_open_to_the_world = 0
-		vim.g.mkdp_open_ip = "127.0.0.1"
-		vim.g.mkdp_browser = "firefox"
-		vim.g.mkdp_port = 8978
-		vim.g.mkdp_echo_preview_url = 1
-	end,
 }

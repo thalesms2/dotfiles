@@ -1,12 +1,9 @@
 return {
-	{ -- LSP Plugins
-		-- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
-		-- used for completion, annotations and signatures of Neovim apis
+	{ 
 		"folke/lazydev.nvim",
 		ft = "lua",
 		opts = {
 			library = {
-				-- Load luvit types when the `vim.uv` word is found
 				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
 				{ path = "snacks.nvim", words = { "Snacks" } },
 			},
@@ -16,62 +13,19 @@ return {
 		-- Main LSP Configuration
 		"neovim/nvim-lspconfig",
 		dependencies = {
-			-- Automatically install LSPs and related tools to stdpath for Neovim
-			-- Mason must be loaded before its dependents so we need to set it up here.
-			-- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
 			{ "williamboman/mason.nvim", opts = {} },
 			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
-
-			-- Useful status updates for LSP.
-			{ "j-hui/fidget.nvim", opts = {} },
-
-			-- Allows extra capabilities provided by nvim-cmp
 			"hrsh7th/cmp-nvim-lsp",
 		},
 		config = function()
-			-- Brief aside: **What is LSP?**
-			--
-			-- LSP is an initialism you've probably heard, but might not understand what it is.
-			--
-			-- LSP stands for Language Server Protocol. It's a protocol that helps editors
-			-- and language tooling communicate in a standardized fashion.
-			--
-			-- In general, you have a "server" which is some tool built to understand a particular
-			-- language (such as `gopls`, `lua_ls`, `rust_analyzer`, etc.). These Language Servers
-			-- (sometimes called LSP servers, but that's kind of like ATM Machine) are standalone
-			-- processes that communicate with some "client" - in this case, Neovim!
-			--
-			-- LSP provides Neovim with features like:
-			--  - Go to definition
-			--  - Find references
-			--  - Autocompletion
-			--  - Symbol Search
-			--  - and more!
-			--
-			-- Thus, Language Servers are external tools that must be installed separately from
-			-- Neovim. This is where `mason` and related plugins come into play.
-			--
-			-- If you're wondering about lsp vs treesitter, you can check out the wonderfully
-			-- and elegantly composed help section, `:help lsp-vs-treesitter`
-
-			--  This function gets run when an LSP attaches to a particular buffer.
-			--    That is to say, every time a new file is opened that is associated with
-			--    an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
-			--    function will be executed to configure the current buffer
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("sato-lsp-attach", { clear = true }),
 				callback = function(event)
-					-- NOTE: Remember that Lua is a real programming language, and as such it is possible
-					-- to define small helper and utility functions so you don't have to repeat yourself.
-					--
-					-- In this case, we create a function that lets us more easily define mappings specific
-					-- for LSP related items. It sets the mode, buffer and description for us each time.
 					local map = function(keys, func, desc, mode)
 						mode = mode or "n"
 						vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 					end
-
 					-- Jump to the definition of the word under your cursor.
 					--  This is where a variable was first declared, or where a function is defined, etc.
 					--  To jump back, press <C-t>.
@@ -95,11 +49,7 @@ return {
 
 					-- Fuzzy find all the symbols in your current workspace.
 					--  Similar to document symbols, except searches over your entire project.
-					map(
-						"<leader>sS",
-						require("telescope.builtin").lsp_dynamic_workspace_symbols,
-						"[S]earch workspace [S]ymbols"
-					)
+					map( "<leader>sS", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[S]earch workspace [S]ymbols")
 
 					-- Rename the variable under your cursor.
 					--  Most Language Servers support renaming across files, etc.
@@ -111,11 +61,6 @@ return {
 
 					map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
-					-- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
-					---@param client vim.lsp.Client
-					---@param method vim.lsp.protocol.Method
-					---@param bufnr? integer some lsp support methods only in specific files
-					---@return boolean
 					local function client_supports_method(client, method, bufnr)
 						if vim.fn.has("nvim-0.11") == 1 then
 							return client:supports_method(method, bufnr)
@@ -124,11 +69,6 @@ return {
 						end
 					end
 
-					-- The following two autocommands are used to highlight references of the
-					-- word under your cursor when your cursor rests there for a little while.
-					--    See `:help CursorHold` for information about when this is executed
-					--
-					-- When you move your cursor, the highlights will be cleared (the second autocommand).
 					local client = vim.lsp.get_client_by_id(event.data.client_id)
 					if
 						client
@@ -162,7 +102,6 @@ return {
 							end,
 						})
 					end
-
 					-- The following code creates a keymap to toggle inlay hints in your
 					-- code, if the language server you are using supports them
 					--

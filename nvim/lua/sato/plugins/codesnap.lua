@@ -1,5 +1,8 @@
 return {
 	"mistricky/codesnap.nvim",
+    desc = "Print code",
+    lazy = true,
+    cmd = { "CodeSnap", "CodeSnapSave", "CodeSnapASCII" },
 	build = "make",
 	keys = {
 		{ "<leader>cs", "<cmd>CodeSnap<cr>", mode = "x", desc = "Save selected code snapshot into clipboard" },

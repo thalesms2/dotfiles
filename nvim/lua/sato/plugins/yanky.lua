@@ -1,6 +1,5 @@
 return {
 	"gbprod/yanky.nvim",
-	recommended = true,
 	desc = "Better Yank/Paste",
 	opts = {
 		ring = {

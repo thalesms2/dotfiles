@@ -1,4 +1,4 @@
-local ilyasyoy_snippets = require("ilyasyoy.snippets")
+local ilyasyoy_snippets = require("sato.snippets")
 local ls = require("luasnip")
 local fmt = require("luasnip.extras.fmt").fmt
 local s = ls.snippet

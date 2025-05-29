@@ -13,6 +13,17 @@ startup_command = "nvim ."
 preview_command = "eza --all --git --icons --color=always {}"
 
 [[session]]
+name = "Config"
+path = "~/.config"
+startup_command = "nvim ."
+preview_command = "eza --all --git --icons --color=always {}"
+
+[[session]]
+name = "CR"
+path = "~/mpCR"
+preview_command = "eza --all --git --icons --color=always {}"
+
+[[session]]
 name = "ghostty config"
 path = "~/.config/ghostty"
 startup_command = "nvim config"

@@ -1,67 +1,21 @@
-return { -- debug
+return {
 	"mfussenegger/nvim-dap",
+    desc = "Debug",
 	event = "VeryLazy",
 	dependencies = {
-		-- Creates a beautiful debugger UI
 		"rcarriga/nvim-dap-ui",
-		-- Required dependency for nvim-dap-ui
 		"nvim-neotest/nvim-nio",
-		-- Installs the debug adapters for you
 		"williamboman/mason.nvim",
 		"jay-babu/mason-nvim-dap.nvim",
-		-- Add your own debuggers here
 	},
 	keys = {
-		{
-			"<F5>",
-			function()
-				require("dap").continue()
-			end,
-			desc = "Debug: Start/Continue",
-		},
-		{
-			"<F1>",
-			function()
-				require("dap").step_into()
-			end,
-			desc = "Debug: Step Into",
-		},
-		{
-			"<F2>",
-			function()
-				require("dap").step_over()
-			end,
-			desc = "Debug: Step Over",
-		},
-		{
-			"<F3>",
-			function()
-				require("dap").step_out()
-			end,
-			desc = "Debug: Step Out",
-		},
-		{
-			"<leader>b",
-			function()
-				require("dap").toggle_breakpoint()
-			end,
-			desc = "Debug: Toggle [B]reakpoint",
-		},
-		{
-			"<leader>B",
-			function()
-				require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
-			end,
-			desc = "Debug: Set [B]reakpoint",
-		},
-		-- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
-		{
-			"<F4>",
-			function()
-				require("dapui").toggle()
-			end,
-			desc = "Debug: Toggle UI",
-		},
+		{ "<F5>", function() require("dap").continue() end, desc = "Debug: Start/Continue", },
+		{ "<F1>", function() require("dap").step_into() end, desc = "Debug: Step Into", },
+		{ "<F2>", function() require("dap").step_over() end, desc = "Debug: Step Over", },
+		{ "<F3>", function() require("dap").step_out() end, desc = "Debug: Step Out", },
+		{ "<leader>b", function() require("dap").toggle_breakpoint() end, desc = "Debug: Toggle [B]reakpoint", },
+		{ "<leader>B", function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, desc = "Debug: Set [B]reakpoint", },
+		{ "<F4>", function() require("dapui").toggle() end, desc = "Debug: Toggle UI", },
 	},
 	config = function()
 		local dap = require("dap")

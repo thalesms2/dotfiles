@@ -6,19 +6,51 @@ zed () {
   flatpak run dev.zed.Zed "$@" 1>/dev/null 2>&1 &
 }
 
-lando () {
+lando() {
   if [[ "$1" = "rebuild" || "$1" = "start" ]]; then
-    data_source="$HOME/DataGripProjects/MP/.idea/dataSources.xml"
+    local data_source="$HOME/DataGripProjects/MP/.idea/dataSources.xml"
+    local db_ui_file="$HOME/.local/share/db_ui/connections.json"
+
+    # Executa o comando lando
     command lando "$@"
-    hostname=$(docker exec multipedidos_database_1 hostname -I | awk '{print $1}')
-    old_ip=$(sed -n 's/.*<jdbc-url>jdbc:mysql:\/\/\([^:]*\):[0-9]*\/.*/\1/p' "$data_source")
-    if [[ "$hostname" = "$old_ip" ]]; then
-      echo "Hostname não foi alterado."
-      return
+
+    # Captura o IP atual do container
+    local current_ip
+    current_ip=$(docker exec multipedidos_database_1 hostname -I | awk '{print $1}')
+
+    # === Atualiza dataSources.xml ===
+    if [[ ! -f "$data_source" ]]; then
+      echo "Arquivo dataSources.xml não encontrado em $data_source"
+      return 1
     fi
-    echo "Hostname antigo: $old_ip"
-    sed -i "s/$old_ip/$hostname/g" "$data_source"
-    echo "Hostname atualizado: $hostname"
+
+    local previous_ip
+    previous_ip=$(sed -n 's/.*<jdbc-url>jdbc:mysql:\/\/\([^:]*\):[0-9]*\/.*/\1/p' "$data_source")
+
+    if [[ "$current_ip" = "$previous_ip" ]]; then
+      echo "O IP do host não foi alterado no dataSources.xml."
+    else
+      echo "Atualizando IP no dataSources.xml"
+      sed -i "s/$previous_ip/$current_ip/g" "$data_source"
+      echo "IP atualizado com sucesso no dataSources.xml."
+    fi
+
+    # === Atualiza db_ui/connections.json ===
+    if [[ -f "$db_ui_file" ]]; then
+      echo "Atualizando IP no connections.json"
+      jq --arg old_ip "$previous_ip" --arg new_ip "$current_ip" '
+        map(
+          if .url and (.url | test($old_ip)) then
+            .url |= sub($old_ip; $new_ip)
+          else
+            .
+          end
+        )
+      ' "$db_ui_file" > "${db_ui_file}.tmp" && mv "${db_ui_file}.tmp" "$db_ui_file"
+      echo "IP atualizado com sucesso em connections.json."
+    else
+      echo "Arquivo connections.json não encontrado em $db_ui_file"
+    fi
   else
     command lando "$@"
   fi

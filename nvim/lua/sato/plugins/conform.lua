@@ -1,16 +1,10 @@
-return { -- Autoformat
+return {
 	"stevearc/conform.nvim",
+    desc = "Autoformat",
 	lazy = true,
 	cmd = { "ConformInfo" },
 	keys = {
-		{
-			"<leader>cf",
-			function()
-				require("conform").format({ async = true, lsp_format = "fallback" })
-			end,
-			mode = "n",
-			desc = "[C]onform [F]ormat buffer",
-		},
+		{ "<leader>cf", function() require("conform").format({ async = true, lsp_format = "fallback" }) end, mode = "n", desc = "[C]onform [F]ormat buffer", },
 	},
 	opts = {
 		notify_on_error = false,
@@ -19,5 +13,4 @@ return { -- Autoformat
 			javascript = { "prettierd", "prettier", stop_after_first = true },
 		},
 	},
-
 }

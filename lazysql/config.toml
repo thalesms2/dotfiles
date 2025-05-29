@@ -1,0 +1,15 @@
+[application]
+DefaultPageSize = 300
+DisableSidebar = false
+
+[[database]]
+Name = 'Mp'
+URL = 'mysql://multipedidos:multipedidos@172.20.0.5:3306/multipedidos_app'
+Provider = 'mysql'
+Username = ''
+Password = ''
+Hostname = ''
+Port = ''
+DBName = 'multipedidos_app'
+URLParams = ''
+Commands = []

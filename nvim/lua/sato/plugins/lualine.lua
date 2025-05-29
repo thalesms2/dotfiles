@@ -2,7 +2,7 @@ return {
 	"nvim-lualine/lualine.nvim",
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 	opts = function()
-        local noice = require("noice")
+		local noice = require("noice")
 
 		return {
 			options = {
@@ -32,7 +32,19 @@ return {
 					},
 				},
 				lualine_b = { "branch", "diff", "diagnostics" },
-				lualine_c = { "filename" },
+				lualine_c = {
+					{
+						"filename",
+						newfile_status = true,
+						path = 1,
+						symbols = {
+							modified = "[+]", -- Text to show when the file is modified.
+							readonly = "[-]", -- Text to show when the file is non-modifiable or readonly.
+							unnamed = "[No Name]", -- Text to show for unnamed buffers.
+							newfile = "[New]", -- Text to show for newly created file before first write
+						},
+					},
+				},
 				lualine_x = { "fileformat" },
 				lualine_y = { "filetype" },
 				lualine_z = { "location" },

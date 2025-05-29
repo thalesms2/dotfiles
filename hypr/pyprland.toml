@@ -1,0 +1,24 @@
+[pyprland]
+plugins = [
+  "fetch_client_menu",
+  # "menubar",
+  "layout_center",
+  "magnify",
+  "scratchpads",
+  # "shortcut_menu",
+  "system_notifier",
+  "toggle_special",
+]
+
+[scratchpads.term]
+animation = "fromTop"
+command = "ghostty"
+size = "75% 60%"
+
+[scratchpads.volume]
+animation = "fromRight"
+command = "pavucontrol"
+class = "org.pulseaudio.pavucontrol"
+lazy = true
+size = "40% 90%"
+unfocus = "hide"

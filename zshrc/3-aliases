@@ -14,7 +14,7 @@ alias shutdown='systemctl poweroff'
 alias net='nmtui'
 alias gcm='git checkout master'
 alias gp='git pull'
-
+alias cda='composer dump-autoload'
 # -----------------------------------------------------
 # Scripts
 # -----------------------------------------------------

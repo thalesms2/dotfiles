@@ -36,7 +36,7 @@ vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 vim.keymap.set("n", "<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
+vim.keymap.set("n", "<leader>ex", "<cmd>!chmod +x %<CR>", { silent = true })
 
 vim.keymap.set("n", "<leader>ee", "oif err != nil {<CR>}<Esc>Oreturn err<Esc>")
 
@@ -110,3 +110,12 @@ vim.keymap.set("n", "<leader>wtx", "<cmd>tabclose<CR>", { desc = "Close current 
 vim.keymap.set("n", "<leader>wtn", "<cmd>tabn<CR>", { desc = "Go to next tab" }) --  go to next tab
 vim.keymap.set("n", "<leader>wtp", "<cmd>tabp<CR>", { desc = "Go to previous tab" }) --  go to previous tab
 vim.keymap.set("n", "<leader>wtf", "<cmd>tabnew %<CR>", { desc = "Open current buffer in new tab" }) --  move current buffer to new tab
+
+vim.keymap.set("n", "<leader>x", "<cmd>.lua<CR>", { desc = "Execute the current line" })
+vim.keymap.set("n", "<leader><leader>x", "<cmd>source %<CR>", { desc = "Execute the current file" })
+
+-- resize split
+-- vim.keymap.set("n", "<M-,>", "<c-w>5<", { desc = "Decrease horinzontally" })
+-- vim.keymap.set("n", "<M-.>", "<c-w>5>", { desc = "Increase horinzontally" })
+-- vim.keymap.set("n", "<M-t>", "<c-w>+<", { desc = "Decrease vertically" })
+-- vim.keymap.set("n", "<M-s>", "<c-w>-<", { desc = "Increase vertically" })

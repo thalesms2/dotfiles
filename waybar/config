@@ -2,27 +2,10 @@
     "layer": "top",
     "position": "top",
     "reload_style_on_change": true,
-    "modules-left": ["custom/padd","hyprland/workspaces","custom/padd"],
-    "modules-center": ["custom/padd","hyprland/window","custom/padd"],
+    "modules-left": ["custom/padd","custom/padd"],
+    "modules-center": ["custom/padd","hyprland/workspaces","custom/padd"],
     "modules-right": ["custom/padd","group/expand","battery","network","clock","custom/notification","custom/padd"],
 
-    "hyprland/window": {
-        "format": "  {}",
-        "separate-outputs": true,
-        "rewrite": {
-            "sato@archlinux:(.*)": "$1 ",
-            "(.*) — Mozilla Firefox": "$1 󰈹",
-            "(.*) - Visual Studio Code": "   $1  󰨞",
-            "(.*) - Code - OSS": "$1 󰨞",
-            "(.*) — Dolphin": "$1 󰉋",
-            "(.*)Spotify": "$1 󰓇",
-            "(.*) - Discord": "$1  ",
-            "(.*) — Google chrome": "$1  ",
-            "(.*) — Github": "$1  "
-        },
-        "max-length": 50,
-        "icon": false
-    },
     "hyprland/workspaces": {
 		"format": "{icon}",
 		"format-icons": {

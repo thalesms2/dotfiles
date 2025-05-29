@@ -123,3 +123,5 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -------------------------------- snacks notify
+
+vim.o.sessionoptions = "buffers,curdir,folds,globals,tabpages,winpos,winsize"

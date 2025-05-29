@@ -35,35 +35,188 @@ return { -- Fuzzy Finder (files, lsp, etc)
 		pcall(t.load_extension, "undo")
 		pcall(t.load_extension, "advanced_git_search")
 		pcall(t.load_extension, "yank_history")
+        pcall(t.load_extension, "persisted")
 
 		local project_actions = require("telescope._extensions.project.actions")
 
 		require("which-key").add({
-			{ "<leader>sh", function() builtin.help_tags() end, desc = "[S]earch [H]elp", mode = "n", },
-			{ "<leader>sr", function() builtin.git_files() end, desc = "[S]earch on [R]epository", mode = "n", },
-			{ "<leader>sk", function() builtin.keymaps() end, desc = "[S]earch [K]eymaps", mode = "n", },
-			{ "<leader>sf", function() builtin.find_files() end, desc = "[S]earch [F]iles", mode = "n", },
-			{ "<leader>s?", function() builtin.builtin() end, desc = "[S]earch buildin help[?]", mode = "n", },
-			{ "<leader>sw", function() builtin.grep_string() end, desc = "[S]earch current [W]ord", mode = "n", },
-			{ "<leader>sg", function() builtin.live_grep() end, desc = "[S]earch by [G]rep", mode = "n", },
-			{ "<leader>sd", function() builtin.diagnostics() end, desc = "[S]earch [D]iagnostics", mode = "n", },
-			{ "<leader>s-", function() builtin.resume() end, desc = "[S]earch resume [-]", mode = "n", },
-			{ "<leader>s.", function() builtin.oldfiles() end, desc = '[S]earch Recent Files ("." for repeat)', mode = "n", },
-			{ "<leader><leader>", function() builtin.buffers() end, desc = "[ ] Find existing buffers", mode = "n", },
-			{ "<leader>sc", function() builtin.find_files({ cwd = vim.fn.stdpath("config") }) end, desc = "[S]earch Neovim [C]onfig", },
-			{ "<leader>gm", function() ext.gitmoji.gitmoji() end, desc = "[G]it[M]oji", },
-			{ "<leader>sG", function() ext.glyph.glyph() end, desc = "[S]earch [G]lyphs", },
-			{ "<leader>s=", function() ext.emoji.emoji() end, desc = "[S]earch emojis [=]", },
-			{ "<leader>su", function() ext.undo.undo() end, desc = "[S]earch [U]ndo", },
-			{ "<leader>sp", function() ext.project.project() end, desc = "[S]earch [P]rojects", },
-			{ "<leader>sag", function() ext.advanced_git_search.changed_on_branch() end, desc = "[S]earch using [A]dvanced [G]it search", },
-			{ "<leader>/", function() builtin.current_buffer_fuzzy_find(themes.get_dropdown({ winblend = 10, previewer = true, })) end, desc = "[/] Fuzzily search in current buffer", },
-			{ "<leader>s/", function() builtin.live_grep({ grep_open_files = true, prompt_title = "Live Grep in Open Files", }) end, desc = "[S]earch [/] in Open Files", },
-            { "<leader>sy", function() ext.yank_history.yank_history() end, desc = "[S]earch [Y]anky" }
+			{
+				"<leader>sh",
+				function()
+					builtin.help_tags()
+				end,
+				desc = "[S]earch [H]elp",
+				mode = "n",
+			},
+			{
+				"<leader>sr",
+				function()
+					builtin.git_files()
+				end,
+				desc = "[S]earch on [R]epository",
+				mode = "n",
+			},
+			{
+				"<leader>sk",
+				function()
+					builtin.keymaps()
+				end,
+				desc = "[S]earch [K]eymaps",
+				mode = "n",
+			},
+			{
+				"<leader>sf",
+				function()
+					builtin.find_files()
+				end,
+				desc = "[S]earch [F]iles",
+				mode = "n",
+			},
+			{
+				"<leader>s?",
+				function()
+					builtin.builtin()
+				end,
+				desc = "[S]earch buildin help[?]",
+				mode = "n",
+			},
+			{
+				"<leader>sw",
+				function()
+					builtin.grep_string()
+				end,
+				desc = "[S]earch current [W]ord",
+				mode = "n",
+			},
+			{
+				"<leader>sg",
+				function()
+					builtin.live_grep()
+				end,
+				desc = "[S]earch by [G]rep",
+				mode = "n",
+			},
+			{
+				"<leader>sd",
+				function()
+					builtin.diagnostics()
+				end,
+				desc = "[S]earch [D]iagnostics",
+				mode = "n",
+			},
+			{
+				"<leader>s-",
+				function()
+					builtin.resume()
+				end,
+				desc = "[S]earch resume [-]",
+				mode = "n",
+			},
+			{
+				"<leader>s.",
+				function()
+					builtin.oldfiles()
+				end,
+				desc = '[S]earch Recent Files ("." for repeat)',
+				mode = "n",
+			},
+			{
+				"<leader><leader>",
+				function()
+					builtin.buffers()
+				end,
+				desc = "[ ] Find existing buffers",
+				mode = "n",
+			},
+			{
+				"<leader>sc",
+				function()
+					builtin.find_files({ cwd = vim.fn.stdpath("config") })
+				end,
+				desc = "[S]earch Neovim [C]onfig",
+			},
+			{
+				"<leader>gm",
+				function()
+					ext.gitmoji.gitmoji()
+				end,
+				desc = "[G]it[M]oji",
+			},
+			{
+				"<leader>sG",
+				function()
+					ext.glyph.glyph()
+				end,
+				desc = "[S]earch [G]lyphs",
+			},
+			{
+				"<leader>s=",
+				function()
+					ext.emoji.emoji()
+				end,
+				desc = "[S]earch emojis [=]",
+			},
+			{
+				"<leader>su",
+				function()
+					ext.undo.undo()
+				end,
+				desc = "[S]earch [U]ndo",
+			},
+			{
+				"<leader>sp",
+				function()
+					ext.project.project()
+				end,
+				desc = "[S]earch [P]rojects",
+			},
+			{
+				"<leader>sag",
+				function()
+					ext.advanced_git_search.changed_on_branch()
+				end,
+				desc = "[S]earch using [A]dvanced [G]it search",
+			},
+			{
+				"<leader>/",
+				function()
+					builtin.current_buffer_fuzzy_find(themes.get_dropdown({ winblend = 10, previewer = true }))
+				end,
+				desc = "[/] Fuzzily search in current buffer",
+			},
+			{
+				"<leader>s/",
+				function()
+					builtin.live_grep({ grep_open_files = true, prompt_title = "Live Grep in Open Files" })
+				end,
+				desc = "[S]earch [/] in Open Files",
+			},
+			{
+				"<leader>sy",
+				function()
+					ext.yank_history.yank_history()
+				end,
+				desc = "[S]earch [Y]anky",
+			},
+            {
+                "<leader>sP",
+                function()
+                    ext.persisted.persisted()
+                end,
+                desc = "[S]earch [P]ersistence"
+            }
 		})
 
 		return {
 			extensions = {
+                persisted = {
+                    layout_config = {},
+                },
+				emoji = {
+					action = function(emoji)
+						vim.api.nvim_put({ emoji.value }, "c", false, true)
+					end,
+				},
 				glyph = {
 					action = function(glyph)
 						vim.api.nvim_put({ glyph.value }, "c", false, true)

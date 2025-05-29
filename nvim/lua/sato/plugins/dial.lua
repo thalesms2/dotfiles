@@ -1,5 +1,6 @@
-return { -- Increment and decrement numbers, dates, and more,
+return {
 	"monaqa/dial.nvim",
+    desc = "Increment and decrement numbers, dates, and more",
 	event = "VeryLazy",
 	opts = function()
 		local augend = require("dial.augend")

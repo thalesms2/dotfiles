@@ -1,24 +1,17 @@
 return { -- Useful plugin to show you pending keybinds.
 	"folke/which-key.nvim",
 	event = "VeryLazy",
+    desc = "Show keybinds",
 	opts_extend = { "spec" },
 	opts = {
 		preset = "helix",
 		delay = 0,
 		icons = {
-			breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
-			separator = "➜", -- symbol used between a key and it's label
-			group = "+", -- symbol prepended to a group
+			breadcrumb = "»",
+			separator = "➜",
+			group = "+",
 			ellipsis = "…",
-			-- set to false to disable all mapping icons,
-			-- both those explicitly added in a mapping
-			-- and those from rules
-			--- See `lua/which-key/icons.lua` for more details
-			--- Set to `false` to disable keymap icons from rules
-			---@type wk.IconRule[]|false
 			rules = {},
-			-- use the highlights from mini.icons
-			-- When `false`, it will use `WhichKeyIcon` instead
 			colors = true,
 			mappings = vim.g.have_nerd_font,
 			keys = vim.g.have_nerd_font and {} or {

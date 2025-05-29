@@ -1,3 +1,4 @@
+keybind = global:ctrl+grave_accent=toggle_quick_terminal
 keybind = ctrl+shift+n=unbind
 #                         _____      _      ____    ____
 #                        |_   _|    / \    | __ )  / ___|

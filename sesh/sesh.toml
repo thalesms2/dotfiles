@@ -13,6 +13,11 @@ startup_command = "nvim ."
 preview_command = "eza --all --git --icons --color=always {}"
 
 [[session]]
+name = "HomeLab"
+path = "~/"
+startup_command = "ssh sato@192.168.15.109"
+
+[[session]]
 name = "Config"
 path = "~/.config"
 startup_command = "nvim ."

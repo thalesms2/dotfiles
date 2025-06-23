@@ -11,6 +11,7 @@ export PATH="/usr/lib/ccache/bin/:$PATH"
 export PATH="/home/sato/.console-ninja/.bin:$PATH"
 export PATH="/home/sato/.lando/bin:$PATH" #landopath
 export PATH="/usr/local/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 
 # -----------------------------------------------------
 # Plugins

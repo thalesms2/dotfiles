@@ -1,6 +1,5 @@
 return {
 	"chrisgrieser/nvim-genghis",
-    event = "VeryLazy",
 	opts = function()
         local gg = require("genghis")
 		require("which-key").add({

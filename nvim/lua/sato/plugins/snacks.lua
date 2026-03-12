@@ -266,7 +266,7 @@ return {
 						end,
 					},
 					ft = "markdown",
-					file = os.getenv("HOME") .. "/github/Obsidian/Vault/notes/notas.md",
+					file = os.getenv("HOME") .. "/github/Obsidian/notes/notas.md",
 					-- root = os.getenv("HOME") .. "/github/Obsidian/Vault/notes",
 				})
 			end,
@@ -287,7 +287,7 @@ return {
 						end,
 					},
 					ft = "markdown",
-					file = os.getenv("HOME") .. "/github/Obsidian/Vault/notes/todo.md",
+					file = os.getenv("HOME") .. "/github/Obsidian/notes/todo.md",
 					-- root = os.getenv("HOME") .. "/github/Obsidian/Vault/notes",
 				})
 			end,
@@ -308,7 +308,7 @@ return {
 						end,
 					},
 					ft = "markdown",
-					file = os.getenv("HOME") .. "/github/Obsidian/Vault/mp/notas-mp.md",
+					file = os.getenv("HOME") .. "/github/Obsidian/mp/notas-mp.md",
 					-- root = os.getenv("HOME") .. "/github/Obsidian/Vault/notes",
 				})
 			end,

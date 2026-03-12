@@ -4,8 +4,8 @@ return {
 	lazy = true,
     cmd = { "DiffviewOpen" },
     keys = {
-        { "<leader>dvo", "<cmd>DiffviewOpen<CR>", mode = "n", desc = "[D]iff [V]iew [O]pen" },
-        { "<leader>dvc", "<cmd>DiffviewClose<CR>", mode = "n", desc = "[D]iff [V]iew [C]lose" },
+        { "<leader>gdo", "<cmd>DiffviewOpen<CR>", mode = "n", desc = "[G]it [D]iff [O]pen" },
+        { "<leader>gdc", "<cmd>DiffviewClose<CR>", mode = "n", desc = "[G]it [D]iff [C]lose" },
     },
 	opts = function()
         local actions = require("diffview.actions")

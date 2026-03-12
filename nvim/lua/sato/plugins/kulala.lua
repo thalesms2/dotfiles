@@ -8,18 +8,10 @@ return {
 	},
 	ft = { "http", "rest" },
 	opts = {
-		-- cURL path
-		-- if you have curl installed in a non-standard path,
-		-- you can specify it here
 		curl_path = "curl",
-		-- additional cURL options
-		-- see: https://curl.se/docs/manpage.html
 		additional_curl_options = {},
-		-- gRPCurl path, get from https://github.com/fullstorydev/grpcurl.git
 		grpcurl_path = "grpcurl",
-		-- websocat path, get from https://github.com/vi/websocat.git
 		websocat_path = "websocat",
-		-- openssl path
 		openssl_path = "openssl",
 
 		-- set scope for environment and request variables
@@ -141,8 +133,7 @@ return {
 		-- set to true to enable default keymaps (check docs or {plugins_path}/kulala.nvim/lua/kulala/config/keymaps.lua for details)
 		-- or override default keymaps as shown in the example below.
 		---@type boolean|table
-		global_keymaps = false,
-		--[[
+		global_keymaps = true,
     {
       ["Send request"] = { -- sets global mapping
         "<leader>Rs",
@@ -163,7 +154,6 @@ return {
       },
     ["Find request"] = false -- set to false to disable
     },
-  ]]
 
 		-- Kulala UI keymaps, override with custom keymaps as required (check docs or {plugins_path}/kulala.nvim/lua/kulala/config/keymaps.lua for details)
 		---@type boolean|table

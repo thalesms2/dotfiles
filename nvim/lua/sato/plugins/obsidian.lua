@@ -10,12 +10,8 @@ return {
 		require("obsidian").setup({
 			workspaces = {
 				{
-					name = "Vault",
-					path = "~/github/Obsidian/Vault",
-				},
-				{
-					name = "Pessoal",
-					path = "~/github/Obsidian/Root",
+					name = "Obsidian",
+					path = "~/github/Obsidian",
 				},
 			},
 			notes_subdir = "notes",

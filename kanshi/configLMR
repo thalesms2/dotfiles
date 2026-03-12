@@ -1,8 +1,8 @@
 profile Dock {
-    output eDP-1 disable
-    output HDMI-A-1 enable mode 1920x1080@74.97Hz position -1920,0
-    output DP-3 enable mode 1920x1080@119.98Hz position 0,0
-    output DP-4 enable mode 2560x1080@74.99Hz transform 270 position 1920,-580
+    output "BOE 0x07CB Unknown" disable
+    output "AOC 24B1W1G5 PUIO6XA001564" enable mode 1920x1080@74.97Hz position 1920,0
+    output "AOC 2460G4 0x00000BC6" enable mode 1920x1080@144.00Hz position 0,0
+    output "LG Electronics LG HDR WFHD 0x00065133" enable mode 2560x1080@74.99Hz transform 90 position -1080,-580
 }
 
 profile DockWithoutLeft {

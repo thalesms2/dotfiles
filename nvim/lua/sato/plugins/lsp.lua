@@ -240,7 +240,7 @@ return {
 						lspconfig.intelephense.setup({
 							settings = {
 								intelephense = {
-									environment = { phpVersion = "7.3" },
+									environment = { phpVersion = "7.3.33" },
 									diagnostics = {
 										languageConstraints = false,
 										typeErrors = false,

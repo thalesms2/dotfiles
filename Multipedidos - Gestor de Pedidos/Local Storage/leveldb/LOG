@@ -1,0 +1,6 @@
+2025/11/07-10:41:41.664 b603 Reusing MANIFEST /home/sato/.config/Multipedidos - Gestor de Pedidos/Local Storage/leveldb/MANIFEST-000001
+2025/11/07-10:41:41.664 b603 Recovering log #3
+2025/11/07-10:41:41.665 b603 Reusing old log /home/sato/.config/Multipedidos - Gestor de Pedidos/Local Storage/leveldb/000003.log 
+2025/11/07-10:48:46.600 b718 Level-0 table #5: started
+2025/11/07-10:48:46.603 b718 Level-0 table #5: 18960 bytes OK
+2025/11/07-10:48:46.604 b718 Delete type=0 #3

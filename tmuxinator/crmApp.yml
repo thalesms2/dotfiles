@@ -1,0 +1,21 @@
+---
+name: mp/crmApp
+project_root: "~/mp/crm-app/"
+on_project_first_start: |
+    if [[ ! $(git status --porcelain) ]]; then
+      if [[ $(git branch --show-current) == "master" ]]; then
+        git pull
+      else
+        git checkout master
+        git pull
+        git checkout -
+      fi
+    fi
+windows:
+    - Terminal:
+          panes:
+              - clear
+    - appRun:
+          panes:
+              - npm run start
+
